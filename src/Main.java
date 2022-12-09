@@ -19,12 +19,6 @@ public class Main {
                     Frame frame = new Frame();
                     frame.setVisible(true);
 
-                    frame.dataPage.getEntryBtn().addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                        }
-                    });
 
 
                 } catch (Exception e) {

@@ -25,10 +25,10 @@ public class DataEntry extends JPanel {
     private JLabel gpsLabel;
 
     //text fields and areas initializations
-    private JTextField weightField;
-    private JTextField bpField;
-    private JTextField spotsField;
-    private JTextField gpsField;
+    public JTextField weightField;
+    public JTextField bpField;
+    public JTextField spotsField;
+    public JTextField gpsField;
     private JTextArea gpsArea;
 
     //button initializations
@@ -190,12 +190,20 @@ public class DataEntry extends JPanel {
         //-----------------------------------------------------------------//
 
         getAnimal();
+        getBoolVal();
 
         //ActionListeners
         entryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,getAnimal()+" saved as new entry.");
+
+                if (!getBoolVal()) {
+                    JOptionPane.showMessageDialog(null, "[Weight]: Invalid input:\n" +
+                            "Enter a whole number greater than 0,");
+                } else {
+                    JOptionPane.showMessageDialog(null,getAnimal()+" saved as new entry.");
+//                    setWeight();
+                }
             }
         });
 
@@ -231,5 +239,15 @@ public class DataEntry extends JPanel {
         });
 
         return animalType;
+    }
+
+    public boolean getBoolVal() {
+        String weightInput = weightField.getText();
+        boolean validate = weightInput.matches("^+\\d*$");
+        if (weightInput.matches("^&")) {
+            return false;
+        } else {
+            return (weightInput.matches("^+\\d*$"));
+        }
     }
 }

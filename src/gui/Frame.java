@@ -27,6 +27,10 @@ public class Frame extends JFrame {
 
         //-----------------------------------------------------------------//
 
+        //
+
+        //-----------------------------------------------------------------//
+
         //ActionListeners to switch panels
         JButton reportBtn = dataPage.getReportBtn();
         reportBtn.addActionListener(new ActionListener() {
