@@ -2,16 +2,18 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
-    private DataEntry dataPage;
+    public DataEntry dataPage;
     private Report reportPage;
 
     public Frame() {
         //JFrame properties
         setTitle("Antarctic Animal Tracking");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 300);
+        setSize(750, 300);
         setLocationRelativeTo(null);
         setLayout(new CardLayout());
         setVisible(true);
@@ -26,6 +28,14 @@ public class Frame extends JFrame {
         //-----------------------------------------------------------------//
 
         //ActionListeners to switch panels
+        JButton reportBtn = dataPage.getReportBtn();
+        reportBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dataPage.setVisible(false);
+                reportPage.setVisible(true);
+            }
+        });
 
         //-----------------------------------------------------------------//
 

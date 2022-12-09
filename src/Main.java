@@ -1,10 +1,17 @@
+import animals.Species;
 import gui.Frame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        ArrayList<Species> penguins = new ArrayList<>();
+        ArrayList<Species> sealions = new ArrayList<>();
+        ArrayList<Species> walrus = new ArrayList<>();
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -12,19 +19,20 @@ public class Main {
                     Frame frame = new Frame();
                     frame.setVisible(true);
 
+                    frame.dataPage.getEntryBtn().addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                        }
+                    });
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        //**Fonts for Swing**//
-//        String fonts[] =
-//                GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-//
-//        for (int i = 0; i < fonts.length; i++) {
-//            System.out.println(fonts[i]);
-//        }
 
     }
 }
