@@ -37,6 +37,39 @@ public class Frame extends JFrame {
             }
         });
 
+        JButton backBtn = reportPage.getBackBtn();
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reportPage.setVisible(false);
+                dataPage.setVisible(true);
+            }
+        });
+
+        //ActionListener to get new entries on report page
+        JButton newEntryBtn = reportPage.getNewEntryBtn();
+        newEntryBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                reportPage.reportLabel.setText("Report: New Animal Entries");
+
+                //**add code to retrieve new entry data
+            }
+        });
+
+        //ActionListener to get gps log on report page
+        JButton gpsLogsBtn = reportPage.getGpsLogsBtn();
+        gpsLogsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reportPage.reportLabel.setText("Report: All Logged GPS Positions to Date");
+
+                //**add code to retrieve gps log data
+            }
+        });
+
+
         //-----------------------------------------------------------------//
 
         //add JPanels

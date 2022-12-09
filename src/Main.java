@@ -1,4 +1,4 @@
-import animals.Species;
+import animals.*;
 import gui.Frame;
 
 import javax.swing.*;
