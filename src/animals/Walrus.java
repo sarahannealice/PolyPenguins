@@ -3,9 +3,9 @@ package animals;
 import java.util.ArrayList;
 
 public class Walrus extends Species {
-    private int dentalHealth;
+    private String dentalHealth;
 
-    public Walrus(String gender, int weight, int dentalHealth, ArrayList gpsCoordinates) {
+    public Walrus(String gender, int weight, String dentalHealth, ArrayList gpsCoordinates) {
         this.gender = gender;
         this.weight = weight;
         this.gpsCoordinates = gpsCoordinates;

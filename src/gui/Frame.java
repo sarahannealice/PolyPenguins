@@ -1,7 +1,9 @@
 package gui;
 
 import animals.Penguin;
+import animals.SeaLion;
 import animals.Species;
+import animals.Walrus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,12 +68,25 @@ public class Frame extends JFrame {
 
 
         //ActionListener to get individual animal entries on data page
-        JButton entryBtn = dataPage.getEntryBtn();
-        entryBtn.addActionListener(new ActionListener() {
+        JButton addEntryBtn = dataPage.getEntryBtn();
+        addEntryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (dataPage.getAnimalType().equals(dataPage.animalOptions[0])) {
-                    tempAnimal = new Penguin(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getPenguinBP(), dataPage.getCoordinates());
+                if (dataPage.getAnimalType() == null) {
+                    JOptionPane.showMessageDialog(null, "An animal must be selected to add an entry.");
+                } else if (!dataPage.getIntValidate()) {
+                    JOptionPane.showMessageDialog(null, "[Weight]: Invalid input:\n" +
+                            "Enter a whole number greater than 0,");
+                } else {
+                    if (dataPage.getAnimalType().equals(dataPage.animalOptions[0])) {
+                        tempAnimal = new Penguin(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getPenguinBP(), dataPage.getCoordinates());
+                    } else if (dataPage.getAnimalType().equals(dataPage.animalOptions[1])) {
+                        tempAnimal = new SeaLion(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getSealionSpots(), dataPage.getCoordinates());
+                    } else {
+                        tempAnimal = new Walrus(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getWalrusDH(), dataPage.getCoordinates());
+                    }
+
+                    JOptionPane.showMessageDialog(null,dataPage.getAnimalType()+" saved as new entry.");
                 }
             }
         });

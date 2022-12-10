@@ -44,8 +44,8 @@ public class DataEntry extends JPanel {
 
     //button initializations
     private JButton addGPSBtn;
-    private JButton entryBtn;
-    public JButton getEntryBtn() { return entryBtn; }//******check if needed******
+    private JButton addEntryBtn;
+    public JButton getEntryBtn() { return addEntryBtn; }//******check if needed******
     private JButton reportBtn;
     public JButton getReportBtn() { return reportBtn; }
 
@@ -163,11 +163,11 @@ public class DataEntry extends JPanel {
         addGPSBtn.setFont(fontTitle);
         add(addGPSBtn);
 
-        entryBtn = new JButton("Add Entry");
-        entryBtn.setBounds(75,175,125,25);
-        entryBtn.setForeground(Color.darkGray);
-        entryBtn.setFont(fontTitle);
-        add(entryBtn);
+        addEntryBtn = new JButton("Add Entry");
+        addEntryBtn.setBounds(75,175,125,25);
+        addEntryBtn.setForeground(Color.darkGray);
+        addEntryBtn.setFont(fontTitle);
+        add(addEntryBtn);
 
         reportBtn = new JButton("View Report");
         reportBtn.setBounds(575,225,125,25);
@@ -205,31 +205,19 @@ public class DataEntry extends JPanel {
         //-----------------------------------------------------------------//
 
         //ActionListeners
-        entryBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                if (!getIntValidate()) {
-                    JOptionPane.showMessageDialog(null, "[Weight]: Invalid input:\n" +
-                            "Enter a whole number greater than 0,");
-                } else {
-                    JOptionPane.showMessageDialog(null,getAnimalType()+" saved as new entry.");
-//                    setWeight();
-                }
-            }
-        });
 
         addGPSBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (getGPSValidate() == 1) {
+
+                if (gpsField.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "At least one GPS location must be entered.");
-                } else if (getGPSValidate() == 3) {
+                } else if (!getGPSValidate()){
                     JOptionPane.showMessageDialog(null, "Invalid GPS format:\n" +
                             "Latitude values range from -90 to 90.\nLongitude values range from -180 to 180.\n" +
                             "Both values must have 7 digits after the decimal separated by a space.\n" +
                             "(-)##.####### (-)(## or ###).#######");
-                } else {
+                } else if (getGPSValidate()){
                     gpsArea.append(gpsField.getText() + "\n");
                 }
             }
@@ -317,8 +305,8 @@ public class DataEntry extends JPanel {
         }
     }
 
-    public int getGPSValidate() {
-        int gpsVal = 0;
+    public boolean getGPSValidate() {
+        boolean gpsVal = false;
 
         String[] latlong = gpsField.getText().split(" ");
         String latitude = latlong[0];
@@ -326,15 +314,15 @@ public class DataEntry extends JPanel {
         float latFloat = Float.parseFloat(latitude);
         float longFloat = Float.parseFloat(longitude);
 
-        if (gpsField.getText().matches("^&")) {
-            gpsVal = 1;
-        } else if (latitude.matches("^-?[0-9]{2}[.][0-9]{7}$") && longitude.matches("^-?[0-9]{2,3}[.][0-9]{7}$")) {
+//        if (gpsField.getText().matches("^&")) {
+//            gpsVal = false;
+//        } else
+        if (latitude.matches("^-?([0-9]{2}[.])[0-9]{7}$") && longitude.matches("^-?[0-9]{2,3}[.][0-9]{7}$")) {
             if (-90 <= latFloat && latFloat <= 90 && -180 <= longFloat && longFloat <= 180) {
-                gpsVal = 2;
-                coordinates.add(gpsField.getText());
+            gpsVal = true;
+            coordinates.add(gpsField.getText());
             }
         } else {
-            gpsVal = 3;
         }
 
         return gpsVal;
