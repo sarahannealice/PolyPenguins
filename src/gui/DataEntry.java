@@ -6,13 +6,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class DataEntry extends JPanel {
     //variable initializations
-    String[] animalOptions = {"Penguin","Sea Lion","Walrus"};//use getClass() for individual names
-    String[] genderOptions = {"Female","Male"};
-    String[] dhOptions = {"Good","Average","Poor"};
-    String animalType;
+    public String[] animalOptions = {"Penguin","Sea Lion","Walrus"};//use getClass() for individual names
+    public String[] genderOptions = {"Female","Male"};
+    public String[] dhOptions = {"Good","Average","Poor"};
+    public String animalType;
+    public String animalGender;
+    public String walrusDH;
+    private ArrayList<String> coordinates = new ArrayList<>();
+
+    //functions to use in Frame
+    public int getAnimalWeight() { return Integer.parseInt(weightField.getText()); }
+    public double getPenguinBP() { return Double.parseDouble(bpField.getText()) ; }
+    public int getSealionSpots() { return Integer.parseInt(spotsField.getText()); }
+    public ArrayList<String> getCoordinates() { return coordinates; }
+
 
     //label initializations
     private JLabel animalObsLabel;
@@ -32,7 +43,7 @@ public class DataEntry extends JPanel {
     private JTextArea gpsArea;
 
     //button initializations
-    private JButton gpsBtn;
+    private JButton addGPSBtn;
     private JButton entryBtn;
     public JButton getEntryBtn() { return entryBtn; }//******check if needed******
     private JButton reportBtn;
@@ -146,11 +157,11 @@ public class DataEntry extends JPanel {
         //-----------------------------------------------------------------//
 
         //JButtons
-        gpsBtn = new JButton("Add GPS");
-        gpsBtn.setBounds(605,35,95,25);
-        gpsBtn.setForeground(Color.darkGray);
-        gpsBtn.setFont(fontTitle);
-        add(gpsBtn);
+        addGPSBtn = new JButton("Add GPS");
+        addGPSBtn.setBounds(605,35,95,25);
+        addGPSBtn.setForeground(Color.darkGray);
+        addGPSBtn.setFont(fontTitle);
+        add(addGPSBtn);
 
         entryBtn = new JButton("Add Entry");
         entryBtn.setBounds(75,175,125,25);
@@ -189,20 +200,37 @@ public class DataEntry extends JPanel {
 
         //-----------------------------------------------------------------//
 
-        getAnimal();
-        getBoolVal();
+        //required functions
+
+        //-----------------------------------------------------------------//
 
         //ActionListeners
         entryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (!getBoolVal()) {
+                if (!getIntValidate()) {
                     JOptionPane.showMessageDialog(null, "[Weight]: Invalid input:\n" +
                             "Enter a whole number greater than 0,");
                 } else {
-                    JOptionPane.showMessageDialog(null,getAnimal()+" saved as new entry.");
+                    JOptionPane.showMessageDialog(null,getAnimalType()+" saved as new entry.");
 //                    setWeight();
+                }
+            }
+        });
+
+        addGPSBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (getGPSValidate() == 1) {
+                    JOptionPane.showMessageDialog(null, "At least one GPS location must be entered.");
+                } else if (getGPSValidate() == 3) {
+                    JOptionPane.showMessageDialog(null, "Invalid GPS format:\n" +
+                            "Latitude values range from -90 to 90.\nLongitude values range from -180 to 180.\n" +
+                            "Both values must have 7 digits after the decimal separated by a space.\n" +
+                            "(-)##.####### (-)(## or ###).#######");
+                } else {
+                    gpsArea.append(gpsField.getText() + "\n");
                 }
             }
         });
@@ -210,7 +238,11 @@ public class DataEntry extends JPanel {
 
     }
 
-    public String getAnimal() {
+
+
+    //-----------------------------------------------------------------//
+    //-----------------------------------------------------------------//
+    public String getAnimalType() {
         animalDropBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,19 +252,19 @@ public class DataEntry extends JPanel {
                     dhDropBox.setVisible(false);
                     bpField.setVisible(true);
 
-                    animalType = "Penguin";
+                    animalType = animalOptions[0];
                 } else if (animalDropBox.getSelectedIndex() == 1) {
                     bpField.setVisible(false);
                     dhDropBox.setVisible(false);
                     spotsField.setVisible(true);
 
-                    animalType = "Sea Lion";
+                    animalType = animalOptions[1];
                 } else if (animalDropBox.getSelectedIndex() == 2) {
                     bpField.setVisible(false);
                     spotsField.setVisible(false);
                     dhDropBox.setVisible(true);
 
-                    animalType = "Walrus";
+                    animalType = animalOptions[2];
                 }
             }
 
@@ -241,7 +273,41 @@ public class DataEntry extends JPanel {
         return animalType;
     }
 
-    public boolean getBoolVal() {
+    public String getAnimalGender() {
+        genderDropBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (genderDropBox.getSelectedIndex() == 0) {
+                    animalGender = genderOptions[0];
+                } else if (genderDropBox.getSelectedIndex() == 1) {
+                    animalGender = genderOptions[1];
+                }
+            }
+        });
+
+        return animalGender;
+    }
+
+    public String getWalrusDH() {
+        dhDropBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dhDropBox.getSelectedIndex() == 0) {
+                    walrusDH = dhOptions[0];
+                } else if (dhDropBox.getSelectedIndex() == 1) {
+                    walrusDH = dhOptions[1];
+                } else if (dhDropBox.getSelectedIndex() == 2) {
+                    walrusDH = dhOptions[2];
+                }
+            }
+        });
+
+        return walrusDH;
+    }
+
+
+    //Validation methods
+    public boolean getIntValidate() {
         String weightInput = weightField.getText();
         boolean validate = weightInput.matches("^+\\d*$");
         if (weightInput.matches("^&")) {
@@ -249,5 +315,28 @@ public class DataEntry extends JPanel {
         } else {
             return (weightInput.matches("^+\\d*$"));
         }
+    }
+
+    public int getGPSValidate() {
+        int gpsVal = 0;
+
+        String[] latlong = gpsField.getText().split(" ");
+        String latitude = latlong[0];
+        String longitude = latlong[1];
+        float latFloat = Float.parseFloat(latitude);
+        float longFloat = Float.parseFloat(longitude);
+
+        if (gpsField.getText().matches("^&")) {
+            gpsVal = 1;
+        } else if (latitude.matches("^-?[0-9]{2}[.][0-9]{7}$") && longitude.matches("^-?[0-9]{2,3}[.][0-9]{7}$")) {
+            if (-90 <= latFloat && latFloat <= 90 && -180 <= longFloat && longFloat <= 180) {
+                gpsVal = 2;
+                coordinates.add(gpsField.getText());
+            }
+        } else {
+            gpsVal = 3;
+        }
+
+        return gpsVal;
     }
 }

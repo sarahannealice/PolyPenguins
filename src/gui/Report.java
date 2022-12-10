@@ -6,6 +6,7 @@ import java.awt.*;
 public class Report extends JPanel {
     public JLabel reportLabel;
     private JTextArea reportArea;
+    private JScrollPane scrollPane;
     private JButton newEntryBtn;
     private JButton gpsLogsBtn;
     private JButton backBtn;
@@ -39,8 +40,14 @@ public class Report extends JPanel {
         reportArea.setForeground(Color.darkGray);
         reportArea.setFont(fontText);
         reportArea.setEditable(false);
-        reportArea.setAutoscrolls(true);
         add(reportArea);
+
+        //JScrollPane
+        scrollPane = new JScrollPane(reportArea);
+        scrollPane.setBounds(20,30,690,180);
+        scrollPane.setAutoscrolls(false);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        add(scrollPane);
 
         //JButtons
         newEntryBtn = new JButton("Show New Entries");

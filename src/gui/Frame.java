@@ -1,11 +1,24 @@
 package gui;
 
+import animals.Penguin;
+import animals.Species;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Frame extends JFrame {
+    //initializing arraylists
+    ArrayList<Species> penguins = new ArrayList<>();
+    ArrayList<Species> sealions = new ArrayList<>();
+    ArrayList<Species> walrus = new ArrayList<>();
+
+    //initializing variables
+    private Species tempAnimal;
+
+    //initializing panels for container
     public DataEntry dataPage;
     private Report reportPage;
 
@@ -49,6 +62,21 @@ public class Frame extends JFrame {
                 dataPage.setVisible(true);
             }
         });
+
+
+
+        //ActionListener to get individual animal entries on data page
+        JButton entryBtn = dataPage.getEntryBtn();
+        entryBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dataPage.getAnimalType().equals(dataPage.animalOptions[0])) {
+                    tempAnimal = new Penguin(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getPenguinBP(), dataPage.getCoordinates());
+                }
+            }
+        });
+
+
 
         //ActionListener to get new entries on report page
         JButton newEntryBtn = reportPage.getNewEntryBtn();
