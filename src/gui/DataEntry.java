@@ -40,7 +40,7 @@ public class DataEntry extends JPanel {
     public JTextField bpField;
     public JTextField spotsField;
     public JTextField gpsField;
-    private JTextArea gpsArea;
+    public JTextArea gpsArea;
 
     //button initializations
     private JButton addGPSBtn;
@@ -201,6 +201,7 @@ public class DataEntry extends JPanel {
         //-----------------------------------------------------------------//
 
         //required functions
+        getAnimalType();
 
         //-----------------------------------------------------------------//
 
@@ -210,14 +211,15 @@ public class DataEntry extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (gpsField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "At least one GPS location must be entered.");
-                } else if (!getGPSValidate()){
+//                if (gpsField.getText().isEmpty()) {
+//                    JOptionPane.showMessageDialog(null, "At least one GPS location must be entered.");
+                if (gpsField.getText().matches("^$") || !getGPSValidate()){
                     JOptionPane.showMessageDialog(null, "Invalid GPS format:\n" +
                             "Latitude values range from -90 to 90.\nLongitude values range from -180 to 180.\n" +
                             "Both values must have 7 digits after the decimal separated by a space.\n" +
                             "(-)##.####### (-)(## or ###).#######");
                 } else if (getGPSValidate()){
+                    coordinates.add(gpsField.getText());
                     gpsArea.append(gpsField.getText() + "\n");
                 }
             }
@@ -236,20 +238,32 @@ public class DataEntry extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 if (animalDropBox.getSelectedIndex() == 0) {
+                    spotsLabel.setVisible(false);
                     spotsField.setVisible(false);
+                    dhLabel.setVisible(false);
                     dhDropBox.setVisible(false);
+
+                    bpLabel.setVisible(true);
                     bpField.setVisible(true);
 
                     animalType = animalOptions[0];
                 } else if (animalDropBox.getSelectedIndex() == 1) {
+                    bpLabel.setVisible(false);
                     bpField.setVisible(false);
+                    dhLabel.setVisible(false);
                     dhDropBox.setVisible(false);
+
+                    spotsLabel.setVisible(true);
                     spotsField.setVisible(true);
 
                     animalType = animalOptions[1];
                 } else if (animalDropBox.getSelectedIndex() == 2) {
+                    bpLabel.setVisible(false);
                     bpField.setVisible(false);
+                    spotsLabel.setVisible(false);
                     spotsField.setVisible(false);
+
+                    dhLabel.setVisible(true);
                     dhDropBox.setVisible(true);
 
                     animalType = animalOptions[2];
@@ -314,13 +328,9 @@ public class DataEntry extends JPanel {
         float latFloat = Float.parseFloat(latitude);
         float longFloat = Float.parseFloat(longitude);
 
-//        if (gpsField.getText().matches("^&")) {
-//            gpsVal = false;
-//        } else
         if (latitude.matches("^-?([0-9]{2}[.])[0-9]{7}$") && longitude.matches("^-?[0-9]{2,3}[.][0-9]{7}$")) {
             if (-90 <= latFloat && latFloat <= 90 && -180 <= longFloat && longFloat <= 180) {
             gpsVal = true;
-            coordinates.add(gpsField.getText());
             }
         } else {
         }

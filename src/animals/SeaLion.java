@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SeaLion extends Species {
     private int spots;
 
-    public SeaLion(String gender, int weight, double bloodPressure, ArrayList gpsCoordinates) {
+    public SeaLion(String gender, int weight, double bloodPressure, ArrayList<String> gpsCoordinates) {
         this.gender = gender;
         this.weight = weight;
         this.gpsCoordinates = gpsCoordinates;
@@ -19,6 +19,10 @@ public class SeaLion extends Species {
     @Override
     public String getGender() {
         return gender;
+    }
+
+    public ArrayList<String> getGPSCoordinates() {
+        return gpsCoordinates;
     }
 
     @Override

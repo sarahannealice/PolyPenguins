@@ -7,12 +7,12 @@ public class Report extends JPanel {
     public JLabel reportLabel;
     private JTextArea reportArea;
     private JScrollPane scrollPane;
-    private JButton newEntryBtn;
+    private JButton newEntriesBtn;
     private JButton gpsLogsBtn;
     private JButton backBtn;
 
     //functions
-    public JButton getNewEntryBtn() { return newEntryBtn; }
+    public JButton getNewEntryBtn() { return newEntriesBtn; }
     public JButton getGpsLogsBtn() { return gpsLogsBtn; }
     public JButton getBackBtn() { return backBtn; }
 
@@ -50,11 +50,11 @@ public class Report extends JPanel {
         add(scrollPane);
 
         //JButtons
-        newEntryBtn = new JButton("Show New Entries");
-        newEntryBtn.setBounds(110,225,165,25);
-        newEntryBtn.setForeground(Color.darkGray);
-        newEntryBtn.setFont(fontTitle);
-        add(newEntryBtn);
+        newEntriesBtn = new JButton("Show New Entries");
+        newEntriesBtn.setBounds(110,225,165,25);
+        newEntriesBtn.setForeground(Color.darkGray);
+        newEntriesBtn.setFont(fontTitle);
+        add(newEntriesBtn);
 
         gpsLogsBtn = new JButton("Show GPS Logs");
         gpsLogsBtn.setBounds(285,225,165,25);

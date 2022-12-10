@@ -74,6 +74,8 @@ public class Frame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (dataPage.getAnimalType() == null) {
                     JOptionPane.showMessageDialog(null, "An animal must be selected to add an entry.");
+                } else if (dataPage.gpsArea.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "At least one GPS location must be entered.");
                 } else if (!dataPage.getIntValidate()) {
                     JOptionPane.showMessageDialog(null, "[Weight]: Invalid input:\n" +
                             "Enter a whole number greater than 0,");
@@ -94,8 +96,8 @@ public class Frame extends JFrame {
 
 
         //ActionListener to get new entries on report page
-        JButton newEntryBtn = reportPage.getNewEntryBtn();
-        newEntryBtn.addActionListener(new ActionListener() {
+        JButton newEntriesBtn = reportPage.getNewEntryBtn();
+        newEntriesBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
