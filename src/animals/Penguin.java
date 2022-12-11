@@ -8,21 +8,36 @@ public class Penguin extends Species {
     public Penguin(String gender, int weight, double bloodPressure, ArrayList<String> gpsCoordinates) {
         this.gender = gender;
         this.weight = weight;
-        this.gpsCoordinates = gpsCoordinates;
         this.bloodPressure = bloodPressure;
+        this.gpsCoordinates = gpsCoordinates;
     }
 
     @Override
-    public int getWeight() {
-        return weight;
+    public String getSpecies() {
+        return "Species: Penguin";
     }
 
     @Override
     public String getGender() {
-        return gender;
+        return "Gender: " + gender;
     }
 
+    @Override
+    public String getWeight() {
+        return "Weight: " + weight + "kg";
+    }
+
+    public String getSpecialTrait() {
+        return "Blood Pressure: " + bloodPressure;
+    }
+
+    @Override
     public ArrayList<String> getGPSCoordinates() {
+//        String temp = "";
+//        for (int i = 0; i < gpsCoordinates.size(); i++) {
+//            temp = gpsCoordinates.get(i).toString();
+//        }
+//        return temp;
         return gpsCoordinates;
     }
 

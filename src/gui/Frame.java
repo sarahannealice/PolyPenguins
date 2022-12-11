@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 public class Frame extends JFrame {
     //initializing arraylists
-    ArrayList<Species> penguins = new ArrayList<>();
-    ArrayList<Species> sealions = new ArrayList<>();
-    ArrayList<Species> walrus = new ArrayList<>();
+    ArrayList<Species> animals = new ArrayList<>();
 
     //initializing variables
     private Species tempAnimal;
@@ -82,13 +80,21 @@ public class Frame extends JFrame {
                 } else {
                     if (dataPage.getAnimalType().equals(dataPage.animalOptions[0])) {
                         tempAnimal = new Penguin(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getPenguinBP(), dataPage.getCoordinates());
+                        animals.add(tempAnimal);
                     } else if (dataPage.getAnimalType().equals(dataPage.animalOptions[1])) {
                         tempAnimal = new SeaLion(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getSealionSpots(), dataPage.getCoordinates());
+                        animals.add(tempAnimal);
                     } else {
                         tempAnimal = new Walrus(dataPage.getAnimalGender(), dataPage.getAnimalWeight(), dataPage.getWalrusDH(), dataPage.getCoordinates());
+                        animals.add(tempAnimal);
                     }
 
                     JOptionPane.showMessageDialog(null,dataPage.getAnimalType()+" saved as new entry.");
+                    dataPage.gpsArea.setText("");
+                    dataPage.weightField.setText("");
+                    dataPage.bpField.setText("");
+                    dataPage.spotsField.setText("");
+                    dataPage.coordinates = new ArrayList<>();
                 }
             }
         });
@@ -100,10 +106,21 @@ public class Frame extends JFrame {
         newEntriesBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                reportPage.reportArea.setText("");
 
                 reportPage.reportLabel.setText("Report: New Animal Entries");
 
-                //**add code to retrieve new entry data
+                for (int i = 0; i < animals.size(); i++) {
+                    reportPage.reportArea.append(animals.get(i).getSpecies() + "\n" +
+                            animals.get(i).getGender() + "\n" + animals.get(i).getWeight() + "\n" + animals.get(i).getSpecialTrait() +
+                            "\n" + "GPS Positions:\n");
+
+                    for (int j = 0; j < animals.get(i).getGPSCoordinates().size(); j++) {
+                        reportPage.reportArea.append(animals.get(i).getGPSCoordinates().get(j) + "\n");
+                    }
+
+                    reportPage.reportArea.append("--------------------------------\n");
+                }
             }
         });
 
@@ -112,9 +129,15 @@ public class Frame extends JFrame {
         gpsLogsBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                reportPage.reportArea.setText("");
+
                 reportPage.reportLabel.setText("Report: All Logged GPS Positions to Date");
 
-                //**add code to retrieve gps log data
+                for (int i = 0; i < animals.size(); i++) {
+                    for (int j = 0; j < animals.get(i).getGPSCoordinates().size(); j++) {
+                        reportPage.reportArea.append(animals.get(i).getGPSCoordinates().get(j) + "\n");
+                    }
+                }
             }
         });
 

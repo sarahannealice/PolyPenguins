@@ -3,12 +3,19 @@ package animals;
 import java.util.ArrayList;
 
 abstract public class Species implements ILoggable {
-    String gender;
-    int weight;
-    ArrayList<String> gpsCoordinates;
+    public String gender;
+    public int weight;
+    public ArrayList<String> gpsCoordinates;
 
-    abstract int getWeight();
-    abstract String getGender();
+    abstract public String getSpecies();
+
+    abstract public String getGender();
+
+    abstract public String getWeight();
+
+    abstract public String getSpecialTrait();
+
+    abstract public ArrayList<String> getGPSCoordinates();
 
 
 }

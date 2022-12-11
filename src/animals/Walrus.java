@@ -11,17 +11,33 @@ public class Walrus extends Species {
         this.gpsCoordinates = gpsCoordinates;
         this.dentalHealth = dentalHealth;
     }
+
     @Override
-    public int getWeight() {
-        return weight;
+    public String getSpecies() {
+        return "Species: Walrus";
     }
 
     @Override
     public String getGender() {
-        return gender;
+        return "Gender: " + gender;
     }
 
+    @Override
+    public String getWeight() {
+        return "Weight: " + weight + "kg";
+    }
+
+    public String getSpecialTrait() {
+        return "Dental Health: " + dentalHealth;
+    }
+
+    @Override
     public ArrayList<String> getGPSCoordinates() {
+//        String temp = "";
+//        for (int i = 0; i < gpsCoordinates.size(); i++) {
+//            temp = gpsCoordinates.get(i).toString();
+//        }
+//        return temp;
         return gpsCoordinates;
     }
 

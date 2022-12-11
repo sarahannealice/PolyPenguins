@@ -16,7 +16,7 @@ public class DataEntry extends JPanel {
     public String animalType;
     public String animalGender;
     public String walrusDH;
-    private ArrayList<String> coordinates = new ArrayList<>();
+    public ArrayList<String> coordinates = new ArrayList<>();
 
     //functions to use in Frame
     public int getAnimalWeight() { return Integer.parseInt(weightField.getText()); }
@@ -202,11 +202,12 @@ public class DataEntry extends JPanel {
 
         //required functions
         getAnimalType();
+        getAnimalGender();
+        getWalrusDH();
 
         //-----------------------------------------------------------------//
 
         //ActionListeners
-
         addGPSBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -221,6 +222,7 @@ public class DataEntry extends JPanel {
                 } else if (getGPSValidate()){
                     coordinates.add(gpsField.getText());
                     gpsArea.append(gpsField.getText() + "\n");
+                    gpsField.setText("");
                 }
             }
         });

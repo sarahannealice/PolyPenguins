@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Report extends JPanel {
     public JLabel reportLabel;
-    private JTextArea reportArea;
+    public JTextArea reportArea;
     private JScrollPane scrollPane;
     private JButton newEntriesBtn;
     private JButton gpsLogsBtn;
@@ -46,7 +46,7 @@ public class Report extends JPanel {
         scrollPane = new JScrollPane(reportArea);
         scrollPane.setBounds(20,30,690,180);
         scrollPane.setAutoscrolls(false);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         add(scrollPane);
 
         //JButtons
