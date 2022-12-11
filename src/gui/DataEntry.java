@@ -219,6 +219,7 @@ public class DataEntry extends JPanel {
                             "Latitude values range from -90 to 90.\nLongitude values range from -180 to 180.\n" +
                             "Both values must have 7 digits after the decimal separated by a space.\n" +
                             "(-)##.####### (-)(## or ###).#######");
+
                 } else if (getGPSValidate()){
                     coordinates.add(gpsField.getText());
                     gpsArea.append(gpsField.getText() + "\n");
